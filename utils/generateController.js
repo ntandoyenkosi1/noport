@@ -11,7 +11,7 @@ function generateController(fileName, data) {
 			${item.key}:req.body.${item.key}`;
     })
     .join(",");
-  console.log(newData, "New data");
+  //console.log(newData, "New data");
   // assign model name
   var model = fileName.split(".js")[0];
   var modelName = model.replace(model.charAt(0), model.charAt(0).toUpperCase());
@@ -80,7 +80,7 @@ const update${modelName} = (req, res) => {
 	${modelName}.findByIdAndUpdate(
 		req.params.${modelName.toLowerCase()}Id,
 		{
-			{ body }
+			${newData}
 		},
 		{ new: true }
 	)
