@@ -1,25 +1,36 @@
 const fs = require("fs");
 /**
  *
- * @param {String} fileName
+ * @param {String[]} fileName
  * @param {{file: string; key: string; value: any;}[]} data
  * @returns
  */
 function generateRoutes(fileName) {
-  var model = fileName.split(".js")[0];
-  var modelName = model.replace(model.charAt(0), model.charAt(0).toUpperCase());
+  var f = fileName.map((file) => {
+    return file.split(".")[0];
+  });
+  var files = f.map((file) => {
+    return `const ${file} = require("../controllers/${file}-controller");
+`;
+  });
+  var content = f.map((file) => {
+    var modelName = file.replace(file.charAt(0), file.charAt(0).toUpperCase());
+    return `
+router.get("/${file}s", ${file}.findAll${modelName}s);
+router.get("/${file}s/:${file}Id", user.find${modelName}ById);
+router.post("/${file}s", ${file}.create${modelName});
+router.put("/${file}s/:${file}Id", ${file}.update${modelName});
+router.delete("/${file}s/:${file}Id", ${file}.delete${modelName});`;
+  });
+
   fs.writeFileSync(
-    `${model}-routes.js`,
+    `all-routes.js`,
     `const express = require("express");
-const ${model} = require("../controllers/${model}-controller");
+${files.join("")}
 const router=express()
-// Users routes
-router.get("/${model}s", ${model}.findAll${modelName}s);
-router.get("/${model}s/:${model}Id", user.find${modelName}ById);
-router.post("/${model}s", ${model}.create${modelName});
-router.put("/${model}s/:${model}Id", ${model}.update${modelName});
-router.delete("/${model}s/:${model}Id", ${model}.delete${modelName});
+${content.join("")}
 module.exports = router;`
   );
 }
-module.exports={generateRoutes}
+module.exports = { generateRoutes };
+generateRoutes(["product.js", "user.js"]);

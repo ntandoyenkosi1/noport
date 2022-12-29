@@ -1,9 +1,8 @@
 const fs = require("fs");
 /**
- *
+ * This function generates a controller for a given file name and it's model data.
  * @param {String} fileName
  * @param {{file: string; key: string; value: any;}[]} data
- * @returns
  */
 function generateController(fileName, data) {
   var newData = data
@@ -77,13 +76,11 @@ const update${modelName} = (req, res) => {
 			message: "${modelName} content can not be empty",
 		});
 	}
+	const body=req.body;
 	${modelName}.findByIdAndUpdate(
 		req.params.${modelName.toLowerCase()}Id,
 		{
-			name: req.body.name,
-			email: req.body.email,
-			password: req.body.password,
-			roles:req.body.roles
+			{ body }
 		},
 		{ new: true }
 	)
