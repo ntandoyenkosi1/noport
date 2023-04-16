@@ -15,10 +15,9 @@ function generateIndex(fileNames) {
   const routes = f.map((file) => {
     return `app.use("/${file}s", ${file}Routes)`;
   });
-  const indexFile = `const express=require("express")
-const router=require("./routes")
-const app=express()
-app.use("/api",router)
+  const indexFile = `const router=require("express").Router()
+const routes=require("./routes")
+router.use("/api",routes)
 module.exports=router`;
   fs.writeFileSync("routes/index.js", indexFile);
 }

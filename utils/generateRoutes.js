@@ -25,9 +25,8 @@ router.delete("/${file}s/:${file}Id", ${file}.delete${modelName});`;
 
   fs.writeFileSync(
     `routes/routes.js`,
-    `const express = require("express");
+    `const router = require("express").Router();
 ${files.join("")}
-const router=express()
 ${content.join("")}
 module.exports = router;`
   );

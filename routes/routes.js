@@ -1,9 +1,8 @@
-const express = require("express");
+const router = require("express").Router();
 const course = require("../controllers/course-controller");
 const role = require("../controllers/role-controller");
 const user = require("../controllers/user-controller");
 
-const router = express.Router();
 
 router.get("/courses", course.findAllCourses);
 router.get("/courses/:courseId", course.findCourseById);

@@ -1,6 +1,4 @@
-const express = require("express");
-const router = require("./routes");
-
-const app = express.Router();
-app.use("/api", router);
-module.exports = app;
+const router=require("express").Router()
+const routes=require("./routes")
+router.use("/api",routes)
+module.exports=router
