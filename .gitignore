@@ -105,3 +105,6 @@ dist
 dist
 dev.md
 controllers
+misc
+all-routes.js
+.gitignore

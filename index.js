@@ -2,7 +2,8 @@ const path = require("path");
 var fs = require("fs");
 const folder = path.join(__dirname, "models");
 const generateController = require("./utils/generateController");
-
+const { generateRoutes } = require("./utils/generateRoutes");
+const { generateIndex } = require("./utils/generateIndex");
 const data = fs.readdirSync("models").map((fileName) => {
   const model = require(path.join(folder, fileName));
   const keys = Object.keys(model.schema.obj);
@@ -12,19 +13,14 @@ const data = fs.readdirSync("models").map((fileName) => {
   return objs;
 });
 
-function generateViews() {}
-var map = new Map();
-console.log(
-  data[0].map((item) => {
-    var key = item.key;
-    var value = `req.body.${item.key}`;
-    console.log(key, value, "KVP");
-
-    map.set(key, value);
-    return { name: item.key };
-  })
-);
-
+var allFiles = [];
 data.forEach((item, index) => {
-  generateController(item[index].file, item);
+  item.forEach((i, key) => {
+    if (!allFiles.includes(item[key].file)) {
+      allFiles.push(item[key].file);
+    }
+    generateController(item[key].file, item);
+  });
 });
+generateIndex(allFiles);
+generateRoutes(allFiles);

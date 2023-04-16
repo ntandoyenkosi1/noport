@@ -17,14 +17,14 @@ function generateRoutes(fileName) {
     var modelName = file.replace(file.charAt(0), file.charAt(0).toUpperCase());
     return `
 router.get("/${file}s", ${file}.findAll${modelName}s);
-router.get("/${file}s/:${file}Id", user.find${modelName}ById);
+router.get("/${file}s/:${file}Id", ${file}.find${modelName}ById);
 router.post("/${file}s", ${file}.create${modelName});
 router.put("/${file}s/:${file}Id", ${file}.update${modelName});
 router.delete("/${file}s/:${file}Id", ${file}.delete${modelName});`;
   });
 
   fs.writeFileSync(
-    `all-routes.js`,
+    `routes/routes.js`,
     `const express = require("express");
 ${files.join("")}
 const router=express()
@@ -33,4 +33,4 @@ module.exports = router;`
   );
 }
 module.exports = { generateRoutes };
-generateRoutes(["product.js", "user.js"]);
+//generateRoutes(["product.js", "user.js"]);

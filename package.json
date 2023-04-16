@@ -18,7 +18,8 @@
     "url": "https://github.com/ntandoyenkosi1/noport/issues"
   },
   "homepage": "https://github.com/ntandoyenkosi1/noport#readme",
-  "dependencies": {
-    "mongoose": "^6.6.5"
+  "devDependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.8.2"
   }
 }

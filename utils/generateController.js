@@ -133,7 +133,7 @@ module.exports = {
 	delete${modelName}
 };
     `;
-  fs.writeFileSync(`dist/${model}-controller.js`, fileData);
+  fs.writeFileSync(`controllers/${model}-controller.js`, fileData);
   return fileData;
 }
 module.exports = generateController;
