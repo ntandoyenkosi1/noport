@@ -7,6 +7,7 @@ Status:
 
 - ~~Generating controllers from models~~
 - ~~Generating HTTP routes~~
+- ~~Added support for handlebars~~
 - Generating views for Server Side Rendering
 - Adding basic Express authentication
 - Resolving any issues

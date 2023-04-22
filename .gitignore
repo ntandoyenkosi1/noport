@@ -107,4 +107,5 @@ dev.md
 controllers
 misc
 all-routes.js
+models
 .gitignore

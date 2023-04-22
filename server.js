@@ -11,9 +11,14 @@ mongoose.connect(MONGODB_URI, {
   useUnifiedTopology: true,
 });
 app.use(router);
-// app.get("*", (req, res) => {
-//   res.status(200).send("Endpoint not defined");
-// });
+app.get("/", function (req, res) {
+  res.render("home");
+});
+app.get("*", (req, res) => {
+  res.status(200).send("Endpoint not defined");
+});
+app.set("view engine", "hbs");
+
 app.listen(PORT, () => {
   console.log(`Server running at PORT ${PORT}`);
 });
