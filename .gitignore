@@ -109,3 +109,4 @@ misc
 all-routes.js
 models
 .gitignore
+views

@@ -5,9 +5,7 @@ function generateLayout(models) {
     .map((y) => {
       return `<a href="${y.toLowerCase()}s">${y}s</a>`;
     });
-  const content = `
-      <html>
-
+  const content = `<html>
     <head>
       <title>NoPort</title>
 
