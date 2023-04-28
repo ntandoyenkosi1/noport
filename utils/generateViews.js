@@ -1,5 +1,11 @@
 const fs = require("fs");
-function generateDirectory(model) {}
+function generateDirectory(models, directory) {
+  models.forEach((model) => {
+    if (!fs.existsSync(directory + "\\views\\" + model.split(".")[0] + "s")) {
+      fs.mkdirSync(directory + "\\views\\" + model.split(".")[0] + "s");
+    }
+  });
+}
 function generateCreate(model, keys) {
   //console.log(keys.map((y) => y));
 
@@ -24,7 +30,7 @@ function generateCreate(model, keys) {
 </div>
 <script src="/js/${model}s/create.js"></script>
   `;
-  fs.writeFileSync("views/test/create.handlebars", content);
+  fs.writeFileSync(`views/${model}s/create.handlebars`, content);
 }
 function generateEdit(model, keys) {
   const content = `<h1>Edit ${model}</h1>
@@ -47,7 +53,7 @@ function generateEdit(model, keys) {
 </div>
 <script src="/js/${model}s/edit.js"></script>
 `;
-  fs.writeFileSync("views/test/edit.handlebars", content);
+  fs.writeFileSync(`views/${model}s/edit.handlebars`, content);
 }
 function generateDetails(model, keys) {
   const content = `<h1>Delete</h1>
@@ -68,7 +74,7 @@ function generateDetails(model, keys) {
   </form>
 </div>
   `;
-  fs.writeFileSync("views/test/details.handlebars", content);
+  fs.writeFileSync(`views/${model}s/details.handlebars`, content);
 }
 function generateDelete(model, keys) {
   const content = `<h1>Delete</h1>
@@ -88,7 +94,7 @@ function generateDelete(model, keys) {
   </form>
 </div>
   `;
-  fs.writeFileSync("views/test/delete.handlebars", content);
+  fs.writeFileSync(`views/${model}s/delete.handlebars`, content);
 }
 function generateIndex(model, keys) {
   const content = `<h1>${model}s</h1>
@@ -121,12 +127,12 @@ function generateIndex(model, keys) {
   </table>
 </div>
   `;
-  fs.writeFileSync("views/test/index.handlebars", content);
+  fs.writeFileSync(`views/${model}s/index.handlebars`, content);
 }
-function generateViews(models, data) {
+function generateViews(models, data, directory) {
   //console.log(data);
+  generateDirectory(models, directory);
   data.forEach((x) => {
-    console.log(x);
     generateCreate(x[0].file?.split(".")[0], x);
     generateDetails(x[0].file?.split(".")[0], x);
     generateEdit(x[0].file?.split(".")[0], x);

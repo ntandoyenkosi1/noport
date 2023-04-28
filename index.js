@@ -25,8 +25,8 @@ data.forEach((item, index) => {
     //generateController(item[key].file, item);
   });
 });
-//generateViews(allFiles, data);
-generateJavaScript(allFiles, data);
-// generateLayout(allFiles);
-// generateIndex(allFiles);
-// generateRoutes(allFiles);
+generateViews(allFiles, data, __dirname);
+generateJavaScript(allFiles, data, __dirname);
+generateLayout(allFiles);
+generateIndex(allFiles);
+generateRoutes(allFiles);

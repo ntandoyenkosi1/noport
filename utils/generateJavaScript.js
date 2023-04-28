@@ -1,5 +1,15 @@
 const fs = require("fs");
-function generateCreateJS(model, keys) {
+const path = require("path");
+function generateDirectory(models, directory) {
+  models.forEach((model) => {
+    if (
+      !fs.existsSync(directory + "\\public\\js\\" + model.split(".")[0] + "s")
+    ) {
+      fs.mkdirSync(directory + "\\public\\js\\" + model.split(".")[0] + "s");
+    }
+  });
+}
+function generateCreateJS(model, keys, directory) {
   let k = keys
     .map((x) => {
       return x.key;
@@ -23,9 +33,12 @@ function generateCreateJS(model, keys) {
       location.redirect("/${model}s");
     });
 });`;
-  fs.writeFileSync("views/test/create.js", content);
+  fs.writeFileSync(
+    directory + "\\public\\js\\" + model + "s\\create.js",
+    content
+  );
 }
-function generateDeleteJS(model, keys) {
+function generateDeleteJS(model, keys, directory) {
   const content = `document.querySelector("form").addEventListener("submit", function (e) {
   e.preventDefault();
   let id = document.querySelector("input[type=hidden]").value;
@@ -37,9 +50,12 @@ function generateDeleteJS(model, keys) {
       location.redirect("/${model}s");
     });
 });`;
-  fs.writeFileSync("views/test/delete.js", content);
+  fs.writeFileSync(
+    directory + "\\public\\js\\" + model + "s\\delete.js",
+    content
+  );
 }
-function generateEditJS(model, keys) {
+function generateEditJS(model, keys, directory) {
   let k = keys
     .map((x) => {
       return x.key;
@@ -64,14 +80,18 @@ function generateEditJS(model, keys) {
     });
 });
     `;
-  fs.writeFileSync("views/test/edit.js", content);
+  fs.writeFileSync(
+    directory + "\\public\\js\\" + model + "s\\edit.js",
+    content
+  );
 }
 
-function generateJavaScript(models, data) {
+function generateJavaScript(models, data, directory) {
+  generateDirectory(models, directory);
   data.forEach((x) => {
-    generateCreateJS(x[0].file?.split(".")[0], x);
-    generateEditJS(x[0].file?.split(".")[0], x);
-    generateDeleteJS(x[0].file?.split(".")[0], x);
+    generateCreateJS(x[0].file?.split(".")[0], x, directory);
+    generateEditJS(x[0].file?.split(".")[0], x, directory);
+    generateDeleteJS(x[0].file?.split(".")[0], x, directory);
   });
 }
 module.exports = { generateJavaScript };
