@@ -9,7 +9,8 @@ Status:
 - ~~Generating HTTP routes~~
 - ~~Added support for handlebars~~
 - ~~Generating views for Server Side Rendering~~
-- Generate corresponding JS files for views
+- ~~Generate corresponding JS files for views~~
+- ~~Consolidate JS and Handlebars files as a unit~~
 - Adding basic Express authentication
 - Resolving any issues
 - Adding tests
