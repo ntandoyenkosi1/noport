@@ -3,6 +3,8 @@ const app = express();
 const router = require("./routes/index");
 const hbsRoutes = require("./controllers");
 const path = require("path");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 //var hbs = require("hbs");
 // hbs.create({})
 const { engine } = require("express-handlebars");
@@ -16,6 +18,16 @@ mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+// app.set("trust proxy", 1); // trust first proxy
+app.use(
+  session({
+    secret: "my deep secret for now",
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: MONGODB_URI, autoRemove: "native" }),
+    // cookie: { secure: true },
+  })
+);
 app.engine("handlebars", engine());
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "handlebars");
@@ -26,6 +38,8 @@ app.get("/", function (req, res) {
   res.render("create");
 });
 app.get("*", (req, res) => {
+  req.session.user = "MySelf";
+  console.log(req.session);
   res.redirect("/");
 });
 

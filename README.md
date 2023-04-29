@@ -9,7 +9,7 @@ Add some mongoose models in the `models` folder.
 
 Create all the required MVC files using this command
 ```shell
-npm run setup
+$ npm run setup
 ```
 Run the project locally using
 ```shell
