@@ -30,7 +30,7 @@ function generateCreateJS(model, keys, directory) {
   })
     .then((x) => x.json())
     .then(function (data) {
-      location.redirect("/${model}s");
+      window.location.replace("/${model}s");
     });
 });`;
   fs.writeFileSync(
@@ -47,7 +47,7 @@ function generateDeleteJS(model, keys, directory) {
   })
     .then((x) => x.json())
     .then(function (data) {
-      location.redirect("/${model}s");
+      window.location.replace("/${model}s");
     });
 });`;
   fs.writeFileSync(
@@ -63,6 +63,7 @@ function generateEditJS(model, keys, directory) {
     .join(", ");
   const content = `document.querySelector("form").addEventListener("submit", function (e) {
   e.preventDefault();
+  let id = document.querySelector("input[type=hidden]").value;
   ${keys.map((x) => {
     return `let ${x.key} = document.querySelector(".${x.key}").value`;
   }).join(`
@@ -76,7 +77,7 @@ function generateEditJS(model, keys, directory) {
   })
     .then((x) => x.json())
     .then(function (data) {
-      document.location.href("/${model}s");
+      window.location.replace("/${model}s");
     });
 });
     `;

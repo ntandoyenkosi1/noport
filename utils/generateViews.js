@@ -73,6 +73,7 @@ function generateDetails(model, keys) {
       .join("")}
   </form>
 </div>
+<script src="/js/${model}s/edit.js"></script>
   `;
   fs.writeFileSync(`views/${model}s/details.handlebars`, content);
 }
@@ -91,14 +92,16 @@ function generateDelete(model, keys) {
     </div>`;
       })
       .join("")}
+      <input type="submit" class="btn submit" value="Delete" />
   </form>
 </div>
+<script src="/js/${model}s/delete.js"></script>
   `;
   fs.writeFileSync(`views/${model}s/delete.handlebars`, content);
 }
 function generateIndex(model, keys) {
   const content = `<h1>${model}s</h1>
-<a href="/courses/create">Create New</a>
+<a href="/${model}s/create">Create New</a>
 <div>
   <table>
     <thead>

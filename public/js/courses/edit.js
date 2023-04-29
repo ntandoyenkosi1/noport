@@ -1,5 +1,6 @@
 document.querySelector("form").addEventListener("submit", function (e) {
   e.preventDefault();
+  let id = document.querySelector("input[type=hidden]").value;
   let Name = document.querySelector(".Name").value
   let StartDate = document.querySelector(".StartDate").value
   let EndDate = document.querySelector(".EndDate").value
@@ -13,7 +14,7 @@ document.querySelector("form").addEventListener("submit", function (e) {
   })
     .then((x) => x.json())
     .then(function (data) {
-      document.location.href("/courses");
+      window.location.replace("/courses");
     });
 });
     

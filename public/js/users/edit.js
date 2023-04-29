@@ -1,5 +1,6 @@
 document.querySelector("form").addEventListener("submit", function (e) {
   e.preventDefault();
+  let id = document.querySelector("input[type=hidden]").value;
   let FirstName = document.querySelector(".FirstName").value
   let LastName = document.querySelector(".LastName").value
   let Email = document.querySelector(".Email").value
@@ -13,7 +14,7 @@ document.querySelector("form").addEventListener("submit", function (e) {
   })
     .then((x) => x.json())
     .then(function (data) {
-      document.location.href("/users");
+      window.location.replace("/users");
     });
 });
     

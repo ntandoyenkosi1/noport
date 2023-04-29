@@ -1,5 +1,6 @@
 document.querySelector("form").addEventListener("submit", function (e) {
   e.preventDefault();
+  let id = document.querySelector("input[type=hidden]").value;
   let Name = document.querySelector(".Name").value
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -10,7 +11,7 @@ document.querySelector("form").addEventListener("submit", function (e) {
   })
     .then((x) => x.json())
     .then(function (data) {
-      document.location.href("/roles");
+      window.location.replace("/roles");
     });
 });
     

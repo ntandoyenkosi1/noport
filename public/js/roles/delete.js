@@ -6,6 +6,6 @@ document.querySelector("form").addEventListener("submit", function (e) {
   })
     .then((x) => x.json())
     .then(function (data) {
-      location.redirect("/roles");
+      window.location.replace("/roles");
     });
 });

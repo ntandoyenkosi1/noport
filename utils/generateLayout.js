@@ -3,7 +3,7 @@ function generateLayout(models) {
   models = models
     .map((x) => x.split(".")[0].replace(/./, x[0].toUpperCase()))
     .map((y) => {
-      return `<a href="${y.toLowerCase()}s">${y}s</a>`;
+      return `<a href="/${y.toLowerCase()}s">${y}s</a>`;
     });
   const content = `<html>
     <head>

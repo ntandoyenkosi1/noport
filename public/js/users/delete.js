@@ -6,6 +6,6 @@ document.querySelector("form").addEventListener("submit", function (e) {
   })
     .then((x) => x.json())
     .then(function (data) {
-      location.redirect("/users");
+      window.location.replace("/users");
     });
 });

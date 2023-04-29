@@ -7,6 +7,7 @@ const { generateIndex } = require("./utils/generateIndex");
 const { generateLayout } = require("./utils/generateLayout");
 const { generateViews } = require("./utils/generateViews");
 const { generateJavaScript } = require("./utils/generateJavaScript");
+const { generatePageRoutes } = require("./utils/generatePageRoutes");
 const data = fs.readdirSync("models").map((fileName) => {
   const model = require(path.join(folder, fileName));
   const keys = Object.keys(model.schema.obj);
@@ -25,6 +26,7 @@ data.forEach((item, index) => {
     //generateController(item[key].file, item);
   });
 });
+generatePageRoutes(allFiles, __dirname);
 generateViews(allFiles, data, __dirname);
 generateJavaScript(allFiles, data, __dirname);
 generateLayout(allFiles);
