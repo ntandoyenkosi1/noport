@@ -5,8 +5,7 @@ const hbsRoutes = require("./controllers");
 const path = require("path");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-//var hbs = require("hbs");
-// hbs.create({})
+const auth = require("./auth");
 const { engine } = require("express-handlebars");
 app.use(express.json());
 const PORT = process.env.PORT || 3001;
@@ -24,7 +23,11 @@ app.use(
     secret: "my deep secret for now",
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: MONGODB_URI, autoRemove: "native" }),
+    store: MongoStore.create({
+      mongoUrl: MONGODB_URI,
+      autoRemove: "native",
+      ttl: 1000 * 60,
+    }),
     // cookie: { secure: true },
   })
 );
@@ -32,13 +35,14 @@ app.engine("handlebars", engine());
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "handlebars");
 app.set("views", "./views");
+app.use(auth);
 app.use(hbsRoutes);
 app.use(router);
 app.get("/", function (req, res) {
+  console.log(req.session);
   res.render("create");
 });
 app.get("*", (req, res) => {
-  req.session.user = "MySelf";
   console.log(req.session);
   res.redirect("/");
 });
