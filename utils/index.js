@@ -1,7 +1,19 @@
-const express=require("express")
-const userRoutes = require("./user")
-const productRoutes = require("./product")
-const app=express()
-app.use("/users", userRoutes)
-app.use("/products", productRoutes)
-module.exports=router
+const { generateController } = require("./generateController");
+const { generateIndex } = require("./generateIndex");
+const { generateJavaScript } = require("./generateJavaScript");
+const { generateLayout } = require("./generateLayout");
+const { generatePageRoutes } = require("./generatePageRoutes");
+const { generateRoutes } = require("./generateRoutes");
+const { generateServer } = require("./generateServer");
+const { generateViews } = require("./generateViews");
+
+module.exports = {
+  generateController,
+  generateIndex,
+  generateJavaScript,
+  generateLayout,
+  generatePageRoutes,
+  generateRoutes,
+  generateServer,
+  generateViews,
+};

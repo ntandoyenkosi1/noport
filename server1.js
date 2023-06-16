@@ -1,0 +1,52 @@
+const express = require("express");
+const app = express();
+const router = require("./routes/index");
+const hbsRoutes = require("./controllers");
+const path = require("path");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const auth = require("./auth");
+const { engine } = require("express-handlebars");
+app.use(express.json());
+const PORT = process.env.PORT || 3001;
+const MONGODB_URI =
+  process.env.MONGODB_URI || `mongodb://localhost:27017/test1`;
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", true);
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+// app.set("trust proxy", 1); // trust first proxy
+app.use(
+  session({
+    secret: "my deep secret for now",
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: MONGODB_URI,
+      autoRemove: "native",
+      ttl: 1000 * 60,
+    }),
+    // cookie: { secure: true },
+  })
+);
+app.engine("handlebars", engine());
+app.use(express.static(path.join(__dirname, "public")));
+app.set("view engine", "handlebars");
+app.set("views", "./views");
+app.use(auth);
+app.use(hbsRoutes);
+app.use(router);
+app.get("/", function (req, res) {
+  console.log(req.session);
+  res.render("create");
+});
+app.get("*", (req, res) => {
+  console.log(req.session);
+  res.redirect("/");
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running at PORT ${PORT}`);
+});

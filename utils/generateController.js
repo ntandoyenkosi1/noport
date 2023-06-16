@@ -136,4 +136,4 @@ module.exports = {
   fs.writeFileSync(`controllers/${model}-controller.js`, fileData);
   return fileData;
 }
-module.exports = generateController;
+module.exports = { generateController };
