@@ -1,0 +1,26 @@
+<h1>roles</h1>
+<a href="/roles/create">Create New</a>
+<div>
+  <table>
+    <thead>
+      <th>
+          Name
+          </th>
+    </thead>
+
+    {{#each data}}
+      <tr>
+      <td>
+          {{Name}}
+          </td>
+        </td>
+        <td>
+          <a href="/roles/details/{{_id}}">View</a>
+          <a href="/roles/edit/{{_id}}">Edit</a>
+          <a href="/roles/delete/{{_id}}">Delete</a>
+        </td>
+      </tr>
+    {{/each}}
+  </table>
+</div>
+  

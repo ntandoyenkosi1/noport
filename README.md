@@ -29,7 +29,7 @@ Status:
 - ~~Generating views for Server Side Rendering~~
 - ~~Generate corresponding JS files for views~~
 - ~~Consolidate JS and Handlebars files as a unit~~
-- Adding basic Express authentication
+- ~~Adding basic Express authentication~~
 - Resolving any issues
 - Adding tests
 - Converting the app to a CLI tool

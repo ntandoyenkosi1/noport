@@ -2,10 +2,9 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const router = require("express").Router();
 router.post("/api/users/login", (req, res) => {
-  console.log("We are here");
   const { Email, Password } = req.body;
-
   User.findOne({ Email: Email })
+    .lean()
     .then((user) => {
       if (!user) {
         return res.status(404).send({
@@ -17,9 +16,11 @@ router.post("/api/users/login", (req, res) => {
       const isValid = bcrypt.compareSync(Password, user.Password);
       console.log({ isValid });
       if (isValid) {
-        req.session.user = { ...user._doc, Password: "" };
-        req.session.loggedIn = true;
-        res.send({ ok: true, data: user });
+        req.session.save(() => {
+          req.session.user = { ...user, Password: "" };
+          req.session.loggedIn = true;
+          res.send({ ok: true, data: user });
+        });
       } else {
         res.send({ ok: false, data: "Incorrect password" });
       }
@@ -48,22 +49,26 @@ router.post("/api/users/signup", (req, res) => {
   user
     .save()
     .then((data) => {
-      req.session.user = { user: { ...data, Password: "" } };
-      req.session.loggedIn = true;
-      res.send({ ok: true, data: data });
+      req.session.save(() => {
+        data.Password = "";
+        req.session.user = data;
+        req.session.loggedIn = true;
+        res.send({ ok: true, data: data });
+      });
     })
     .catch((err) => {
       res.status(500).send({ ok: false, error: err });
     });
 });
 router.get("/logout", (req, res) => {
-  //console.log(req.session);
   req.session.destroy(() => {
-    //console.log(req.session);
     res.redirect("/");
   });
 });
 router.get("/login", function (req, res) {
+  if (req.session.loggedIn == true) {
+    return res.redirect("/");
+  }
   res.render("auth/login");
 });
 router.get("/signup", function (req, res) {

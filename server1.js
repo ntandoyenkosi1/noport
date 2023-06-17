@@ -39,11 +39,12 @@ app.use(auth);
 app.use(hbsRoutes);
 app.use(router);
 app.get("/", function (req, res) {
-  console.log(req.session);
-  res.render("create");
+  res.render("home", {
+    user: req.session.user,
+    loggedIn: req.session.loggedIn,
+  });
 });
 app.get("*", (req, res) => {
-  console.log(req.session);
   res.redirect("/");
 });
 

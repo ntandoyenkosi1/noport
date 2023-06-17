@@ -1,0 +1,22 @@
+<h1>Delete</h1>
+<div>
+  <form>
+  <input type="hidden" value="{{_id}}" />
+    <div>
+      <label for="Name">Name</label>
+      <input class="Name" name="Name" readonly type="text" value="{{Name}}" />
+    </div><div>
+      <label for="StartDate">StartDate</label>
+      <input class="StartDate" name="StartDate" readonly type="date" value="{{StartDate}}" />
+    </div><div>
+      <label for="EndDate">EndDate</label>
+      <input class="EndDate" name="EndDate" readonly type="date" value="{{EndDate}}" />
+    </div><div>
+      <label for="Status">Status</label>
+      <input class="Status" name="Status" readonly type="text" value="{{Status}}" />
+    </div>
+      <input type="submit" class="btn submit" value="Delete" />
+  </form>
+</div>
+<script src="/js/courses/delete.js"></script>
+  

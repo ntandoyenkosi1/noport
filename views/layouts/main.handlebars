@@ -1,11 +1,4 @@
-const fs = require("fs");
-function generateLayout(models) {
-  models = models
-    .map((x) => x.split(".")[0].replace(/./, x[0].toUpperCase()))
-    .map((y) => {
-      return `<a href="/${y.toLowerCase()}s">${y}s</a>`;
-    });
-  const content = `<html>
+<html>
     <head>
       <title>NoPort</title>
 
@@ -19,8 +12,9 @@ function generateLayout(models) {
           <span>Logged in</span>
         {{/if}}
         <ul>
-          ${models.join(`
-          `)}
+          <a href="/courses">Courses</a>
+          <a href="/roles">Roles</a>
+          <a href="/users">Users</a>
         {{#if loggedIn}}
           <a href="/logout">Logout</a>
         
@@ -34,9 +28,4 @@ function generateLayout(models) {
 
     </body>
 
-  </html>`;
-  fs.writeFileSync("views/layouts/main.handlebars", content);
-}
-module.exports = {
-  generateLayout,
-};
+  </html>

@@ -12,7 +12,11 @@ document.querySelector("form").addEventListener("submit", function (e) {
     .then((x) => x.json())
     .then(function (data) {
       console.log(data);
-      window.location.replace("/users");
+      if (data.ok) {
+        window.location.replace("/users");
+      } else {
+        window.location.replace("/login");
+      }
     })
     .catch(function (err) {
       alert("An error occured");
